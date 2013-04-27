@@ -1,3 +1,12 @@
+/**
+ Copyright (C) 2013 Sijuola F. Odeyemi
+
+ This source code is release under the Artistic License.
+ 
+ Code license: http://www.opensource.org/licenses/artistic-license-2.0.php
+
+ Contact: odeyemis@gmail.com
+ */
 package com.maygard.core;
 
 
