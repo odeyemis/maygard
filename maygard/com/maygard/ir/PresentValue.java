@@ -58,4 +58,16 @@ public final class PresentValue {
 		}
 		return pv;
 	}
+	public static double pVcont(double reporate, double d, double deliveryprice) {
+		// TODO Method not found in Dr/ Phil's book 
+		//or in any of the ir classes. We need to find a solution
+		//as this is incorrect.
+		return 0;
+	}
+	public static double pVcont(double d, double e) {
+		// TODO Method not found in Dr/ Phil's book 
+		//or in any of the ir classes. We need to find a solution
+		//as this is incorrect.
+		return 0;
+	}
 }

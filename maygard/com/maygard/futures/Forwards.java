@@ -9,6 +9,8 @@
  */
 package com.maygard.futures;
 
+import com.maygard.ir.PresentValue;
+
 /**
  *TODO:
  This class is Unfinished Business. To complete, delete the mock
@@ -50,21 +52,15 @@ public final class Forwards {
 	public static double fpriceNoinc(double spotprice,double maturity,
 	double currentime,double deliveryprice,double reporate) {
 
-	    return(spotprice-(pVcont(reporate,(maturity-currentime),
+	    return(spotprice-(PresentValue.pVcont(reporate,(maturity-currentime),
 	    deliveryprice)));
 	}
 	
-	private static double pVcont(double reporate, double d, double deliveryprice) {
-		// TODO Method not found in Dr/ Phil's book 
-		//or in any of the ir classes. We need to find a solution
-		//as this is incorrect.
-		return 0;
-	}
 
 	public static double fpriceInc(double spotprice,double maturity,
 	double currentime,double reporate,double period,double dividend) {
 		double income=0.0;
-		income= maturity==1.0 ?pVcont(reporate,1.0,dividend):0.0;
+		income= maturity==1.0 ?PresentValue.pVcont(reporate,1.0,dividend):0.0;
 		//last value
 		double limit=0.0;
 		limit=(maturity-currentime);//Assumes that later start times
@@ -72,7 +68,7 @@ public final class Forwards {
 		double time =(period/12.0);
 		double increment=time;
 		while(time<limit) {
-		income+=pVcont(reporate,time,dividend);
+		income+=PresentValue.pVcont(reporate,time,dividend);
 		time=time+increment;
 		}
 		return((spotprice-income)*(conintr(reporate,
@@ -89,7 +85,7 @@ public final class Forwards {
 		double time =(period/12.0);
 		double increment=time;
 		for(double r:reporate) {
-		income+=pVcont(r,time,dividend);
+		income+=PresentValue.pVcont(r,time,dividend);
 		time=time+increment;
 		}
 		return((spotprice-income)*(conintr(reporate[(reporate.
@@ -101,26 +97,20 @@ public final class Forwards {
 	currentime,double reporate,double period,double dividend,double
 	deliveryprice) {
 		double income=0.0;
-		income= maturity==1.0 ?pVcont(reporate,1.0,dividend):
+		income= maturity==1.0 ?PresentValue.pVcont(reporate,1.0,dividend):
 		0.0;//last value
 		double limit=0.0;
 		limit=(maturity-currentime);//Assumes that later start times will floor the pv of dividend payments
 		double time =(period/12.0);
 		double increment=time;
 		while(time<limit) {
-		income+=pVcont(reporate,time,dividend);
+		income+=PresentValue.pVcont(reporate,time,dividend);
 		time=time+increment;
 		}
-		return ((spotprice-income)-(deliveryprice*pVcont
+		return ((spotprice-income)-(deliveryprice*PresentValue.pVcont
 		(reporate, (maturity-currentime))));
 	}
 	
-	private static double pVcont(double reporate, double d) {
-		// TODO Method not found in Dr/ Phil's book 
-		//or in any of the ir classes. We need to find a solution
-		//as this is incorrect.
-		return 0;
-	}
 
 	public static double fvalueInc(double spotprice,double
 	maturity,double currentime,double[] reporate,double period,
@@ -130,10 +120,10 @@ public final class Forwards {
 		double time =(period/12.0);
 		double increment=time;
 		for(double r:reporate) {
-		income+=pVcont(r,time,dividend);
+		income+=PresentValue.pVcont(r,time,dividend);
 		time=time+increment;
 		}
-		return (spotprice-(income+(deliveryprice*pVcont(reporate
+		return (spotprice-(income+(deliveryprice*PresentValue.pVcont(reporate
 		[(reporate.length-1)], (maturity-currentime)))));
 	}
 	// Also parity rate calculation
@@ -141,7 +131,7 @@ public final class Forwards {
 	delivprice,double maturity,
 	double currentime,double reporate)
 	{
-		return ((fprice-delivprice)*pVcont(reporate,
+		return ((fprice-delivprice)*PresentValue.pVcont(reporate,
 		(maturity-currentime)));
 	}
 	
@@ -157,7 +147,7 @@ public final class Forwards {
 	double deliveryprice)
 	{
 		return ((fpriceDyld(spotprice,maturity,currentime,
-		reporate,dividendyld)- (deliveryprice))*pVcont(reporate,
+		reporate,dividendyld)- (deliveryprice))*PresentValue.pVcont(reporate,
 		(maturity-currentime)));
 	}
 }
