@@ -25,7 +25,14 @@ public abstract class IntervalBisection
     public abstract double computeFunction(double rootvalue);
     protected double precisionvalue;
     protected int iterations;
-    protected double lowerBound;
+    public int getIterations() {
+		return iterations;
+	}
+
+	public void setIterations(int iterations) {
+		this.iterations = iterations;
+	}
+	protected double lowerBound;
     protected double upperBound;
     
     //default constructor//
@@ -41,17 +48,15 @@ public abstract class IntervalBisection
         this.precisionvalue=precisionvalue;
     }
     
-    public int getiterations()
-    {
-        return iterations;
-    }
-    
-    public double getprecisionvalue()
-    {
-        return precisionvalue;
-    }
-    
-    public double evaluateRoot(double lower, double higher)
+    public double getPrecisionvalue() {
+		return precisionvalue;
+	}
+
+	public void setPrecisionvalue(double precisionvalue) {
+		this.precisionvalue = precisionvalue;
+	}
+
+	public double evaluateRoot(double lower, double higher)
     {
         double fa;
         double fb;
