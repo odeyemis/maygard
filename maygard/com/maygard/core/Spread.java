@@ -7,10 +7,8 @@
 
  Contact: odeyemis@gmail.com
  */
-package com.maygard.bonds;
+package com.maygard.core;
 
-import com.maygard.core.NewtonRaphson;
-import com.maygard.core.YieldBisect;
 import com.maygard.ir.PresentValue;
 
 public class Spread extends NewtonRaphson {
