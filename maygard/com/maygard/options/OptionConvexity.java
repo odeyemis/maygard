@@ -1,7 +1,7 @@
 /**
  Copyright (C) 2013 Sijuola F. Odeyemi
 
- This source code is release under the Artistic  2.0.
+ This source code is released under the Artistic  2.0.
  
  Code license: http://www.opensource.org/licenses/artistic-license-2.0.php
 
