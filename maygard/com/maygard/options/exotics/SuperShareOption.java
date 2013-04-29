@@ -7,7 +7,7 @@
 
  Contact: odeyemis@gmail.com
  */
-package com.maygard.options.exotics.barrier;
+package com.maygard.options.exotics;
 
 import com.maygard.core.Probnormal;
 
