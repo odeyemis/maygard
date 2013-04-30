@@ -11,10 +11,10 @@ package com.maygard.options;
 
 import com.maygard.core.Probnormal;
 
-//Implementation of class to compute Vasiceck algorithm
-public class VasiceckOption {
+//Implementation of class to compute Vasicek algorithm
+public class VasicekOption {
 	
-	public VasiceckOption(double meanrev,double revlevel,
+	public VasicekOption(double meanrev,double revlevel,
 	double volatility, double starttime) {
 		a=meanrev;
 		theta=revlevel;
@@ -74,7 +74,7 @@ public class VasiceckOption {
 	
 	//delete if not needed
 	public static void main(String[] args) {
-		VasiceckOption v= new VasiceckOption(0.055,0.095,0.04,0.0);
+		VasicekOption v= new VasicekOption(0.055,0.095,0.04,0.0);
 	double returnvalue=v.vasiCall(110.0,100.0,0.085,3.0,4.0);
 	System.out.println(" CALL =="+returnvalue);
 	}
