@@ -165,7 +165,7 @@ public class Volatility{
 	{
 		//TODO: NOTE: I have re-implemented this class using YieldBisect
 		//due to the Tyield class not existing.
-		//***I AM NOT SURE IF THIS IMPLEMENTATION IS CORRECT***
+		
 		double couponterm=12.0/frequency;
 		double change=((facevalue/100.0)*pointvalue);
 		setPpointpricedown(price-change);
