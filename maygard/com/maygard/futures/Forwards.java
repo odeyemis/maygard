@@ -13,7 +13,7 @@ import com.maygard.ir.PresentValue;
 
 /**
  *TODO:
- This class is Unfinished Business. To complete, delete the mock
+ Delete the mock
  implementations of methods conintr and pVcont (overloaded) and find
  or make their real implementations.
  */
