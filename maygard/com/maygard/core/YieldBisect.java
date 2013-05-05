@@ -23,7 +23,8 @@ public class YieldBisect extends IntervalBisection {
 	    inputvaluehigh=high;
 	}
 	
-	protected double nominalstockprice;
+	//protected double nominalstockprice;
+	protected double nominalpricevalue;
 	protected double termperiod;
 	protected double couponrate;
 	protected double marketpricevalue;
@@ -40,14 +41,14 @@ public class YieldBisect extends IntervalBisection {
 	    poscashflow=rateperTerm;//cashflow out per term
 	    //as monthly amount * termperiod//
 	    solution=(poscashflow/rootinput*(1.0-
-	    1.0/(Math.pow(1.0+rootinput,rateindex))))+(nominalstockprice/
+	    1.0/(Math.pow(1.0+rootinput,rateindex))))+(nominalpricevalue/
 	    (Math.pow(1.0+rootinput, rateindex)))-marketpricevalue;
 	    return solution;
 	}
 
 	public double yield(double noms, double term, double coupon,
 	double mktp, double period) {
-		nominalstockprice=noms;
+		nominalpricevalue=noms;
 		termperiod=term;
 		couponrate=coupon;
 		marketpricevalue=mktp;
