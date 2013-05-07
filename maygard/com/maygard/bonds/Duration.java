@@ -9,8 +9,8 @@
  */
 package com.maygard.bonds;
 
-import com.maygard.core.Volatility;
 import com.maygard.ir.PresentValue;
+import com.maygard.ir.Volatility;
 
 public class Duration {
 	

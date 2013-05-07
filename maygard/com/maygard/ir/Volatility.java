@@ -7,9 +7,9 @@
 
  Contact: odeyemis@gmail.com
  */
-package com.maygard.core;
+package com.maygard.ir;
 
-import com.maygard.ir.InterestRate;
+import com.maygard.core.YieldBisect;
 
 public class Volatility{
 	
