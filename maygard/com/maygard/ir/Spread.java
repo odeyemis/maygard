@@ -10,7 +10,7 @@
 package com.maygard.ir;
 
 import com.maygard.core.NewtonRaphson;
-import com.maygard.core.YieldBisect;
+import com.maygard.core.NewtonYield;
 
 public class Spread extends NewtonRaphson {
 	
@@ -82,14 +82,14 @@ public class Spread extends NewtonRaphson {
 		spotPvperiod(spots,coupon);
 		//TODO: Note: we could use a NewtonYield object also.
 		//Tyield c=new Tyield();// create a yield object
-		YieldBisect c= new YieldBisect();
+		NewtonYield c= new NewtonYield(periodyield,1e-6,20);
 		//curveyield=c.yieldEstimate(facevalue,6.0,coupon,price,
 		//maturity,spotapprox);
 		curveyield = c.yield(facevalue,6.0,
 				coupon,price,maturity);
 		price=priceval;
 		//Tyield t=new Tyield();
-		YieldBisect t= new YieldBisect();
+		NewtonYield t= new NewtonYield(periodyield,1e-6,20);
 		//baseyield=t.yieldEstimate(facevalue,6.0,coupon,price,
 		//maturity,periodyield);
 		baseyield=t.yield(facevalue,6.0,coupon,price,
@@ -112,7 +112,7 @@ public class Spread extends NewtonRaphson {
 		int index=0;
 		double spreads[]=new double[prices.length];
 		//Tyield t=new Tyield();
-		YieldBisect t= new YieldBisect();
+		NewtonYield t= new NewtonYield((curvest/100.0),1e-6,20);
 		nperiods=maturity*terms;
 		periodcoupon=(coupon/(terms));
 		price=dataperiod==1?spotPvannual(spots,coupon):
@@ -123,7 +123,7 @@ public class Spread extends NewtonRaphson {
 		maturity);
 		for(double p:prices) {
 		//Tyield yld=new Tyield();
-		YieldBisect yld= new YieldBisect();
+		NewtonYield yld= new NewtonYield((yieldapprox/100.0),1e-6,20);
 		price=p;
 		//double y=yld.yieldEstimate(facevalue,6.0,coupon,price,
 		//maturity,(yieldapprox/100.0));

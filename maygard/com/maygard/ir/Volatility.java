@@ -9,7 +9,7 @@
  */
 package com.maygard.ir;
 
-import com.maygard.core.YieldBisect;
+import com.maygard.core.NewtonYield;
 
 public class Volatility{
 	
@@ -171,7 +171,7 @@ public class Volatility{
 		setPpointpricedown(price-change);
 		setPpointpriceup(price+change);
 		//Tyield CalcBond= new Tyield();
-		YieldBisect CalcBond= new YieldBisect();
+		NewtonYield CalcBond= new NewtonYield(estimate,1e-6,20);
 		//setInitialYldPp(CalcBond.yieldEstimate(facevalue,couponterm,
 		//couponpercent,price,maturity,estimate));
 		//setdownyieldPp(abs((CalcBond.yieldEstimate(facevalue,
