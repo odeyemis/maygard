@@ -11,6 +11,7 @@ package com.maygard.ir;
 
 import com.maygard.core.NewtonRaphson;
 import com.maygard.core.NewtonYield;
+import com.maygard.core.YieldBisect;
 
 public class Spread extends NewtonRaphson {
 	
@@ -80,20 +81,37 @@ public class Spread extends NewtonRaphson {
 		spotapprox=spotapprox/terms;
 		price=dataperiod==1?spotPvannual(spots,coupon):
 		spotPvperiod(spots,coupon);
-		//TODO: Note: we could use a NewtonYield object also.
-		//Tyield c=new Tyield();// create a yield object
-		NewtonYield c= new NewtonYield(periodyield,1e-6,20);
-		//curveyield=c.yieldEstimate(facevalue,6.0,coupon,price,
-		//maturity,spotapprox);
-		curveyield = c.yield(facevalue,6.0,
-				coupon,price,maturity);
-		price=priceval;
-		//Tyield t=new Tyield();
-		NewtonYield t= new NewtonYield(periodyield,1e-6,20);
-		//baseyield=t.yieldEstimate(facevalue,6.0,coupon,price,
-		//maturity,periodyield);
-		baseyield=t.yield(facevalue,6.0,coupon,price,
-		maturity);
+		
+		if(System.getProperty("sun.arch.data.model") .equals("64")){
+			NewtonYield c= new NewtonYield(spotapprox,1e-6,20);
+			//curveyield=c.yieldEstimate(facevalue,6.0,coupon,price,
+			//maturity,spotapprox);
+			curveyield = c.yield(facevalue,6.0,
+					coupon,price,maturity);	
+			price=priceval;
+			NewtonYield t= new NewtonYield(periodyield,1e-6,20);
+			//baseyield=t.yieldEstimate(facevalue,6.0,coupon,price,
+			//maturity,periodyield);
+			baseyield=t.yield(facevalue,6.0,coupon,price,
+			maturity);			
+		}
+		else{
+			YieldBisect c= new YieldBisect(20,1e-6,(spotapprox+0.02),(spotapprox-0.02));
+			//curveyield=c.yieldEstimate(facevalue,6.0,coupon,price,
+			//maturity,spotapprox);
+			curveyield = c.yield(facevalue,6.0,
+					coupon,price,maturity);	
+			price=priceval;
+			YieldBisect t= new YieldBisect(20,1e-6,(periodyield+0.02),(periodyield-0.02));
+			//baseyield=t.yieldEstimate(facevalue,6.0,coupon,price,
+			//maturity,periodyield);
+			baseyield=t.yield(facevalue,6.0,coupon,price,
+			maturity);				
+		}
+		
+		
+		
+		
 		return (Math.abs(baseyield-curveyield));// returns annualised rates
 	}
 	/**
@@ -111,27 +129,58 @@ public class Spread extends NewtonRaphson {
 		double curvest=yieldapprox;
 		int index=0;
 		double spreads[]=new double[prices.length];
-		//Tyield t=new Tyield();
-		NewtonYield t= new NewtonYield((curvest/100.0),1e-6,20);
-		nperiods=maturity*terms;
-		periodcoupon=(coupon/(terms));
-		price=dataperiod==1?spotPvannual(spots,coupon):
-		spotPvperiod(spots,coupon);
-		//curveyield=t.yieldEstimate(facevalue,6.0,coupon,price,
-		//maturity,(curvest/100.0));
-		curveyield=t.yield(facevalue,6.0,coupon,price,
-		maturity);
-		for(double p:prices) {
-		//Tyield yld=new Tyield();
-		NewtonYield yld= new NewtonYield((yieldapprox/100.0),1e-6,20);
-		price=p;
-		//double y=yld.yieldEstimate(facevalue,6.0,coupon,price,
-		//maturity,(yieldapprox/100.0));
-		double y=yld.yield(facevalue,6.0,coupon,price,
-		maturity);
-		spreads[index]=(y-curveyield);
-		index++;
+		
+		
+		
+		if(System.getProperty("sun.arch.data.model") .equals("64")){
+			NewtonYield t= new NewtonYield((curvest/100.0),1e-6,20);
+			nperiods=maturity*terms;
+			periodcoupon=(coupon/(terms));
+			price=dataperiod==1?spotPvannual(spots,coupon):
+			spotPvperiod(spots,coupon);
+			//curveyield=t.yieldEstimate(facevalue,6.0,coupon,price,
+			//maturity,(curvest/100.0));
+			curveyield=t.yield(facevalue,6.0,coupon,price,
+			maturity);
+			for(double p:prices) {
+			NewtonYield yld= new NewtonYield((yieldapprox/100.0),1e-6,20);
+			price=p;
+			//double y=yld.yieldEstimate(facevalue,6.0,coupon,price,
+			//maturity,(yieldapprox/100.0));
+			double y=yld.yield(facevalue,6.0,coupon,price,
+			maturity);	
+			
+			spreads[index]=(y-curveyield);
+			index++;
+			}
 		}
+		else{
+			YieldBisect t= new YieldBisect(20,1e-6,((curvest/100.0)+0.02),((curvest/100.0)-0.02));
+			nperiods=maturity*terms;
+			periodcoupon=(coupon/(terms));
+			price=dataperiod==1?spotPvannual(spots,coupon):
+			spotPvperiod(spots,coupon);
+			//curveyield=t.yieldEstimate(facevalue,6.0,coupon,price,
+			//maturity,(curvest/100.0));
+			curveyield=t.yield(facevalue,6.0,coupon,price,
+			maturity);
+			for(double p:prices) {
+			YieldBisect yld= new YieldBisect(20,1e-6,((yieldapprox/100.0)+0.02),((yieldapprox/100.0)-0.02));
+			price=p;
+			//double y=yld.yieldEstimate(facevalue,6.0,coupon,price,
+			//maturity,(yieldapprox/100.0));
+			double y=yld.yield(facevalue,6.0,coupon,price,
+			maturity);	
+			
+			spreads[index]=(y-curveyield);
+			index++;
+			}
+		}
+
+		
+		
+		
+
 		return spreads;
 	}
 	

@@ -10,6 +10,7 @@
 package com.maygard.ir;
 
 import com.maygard.core.NewtonYield;
+import com.maygard.core.YieldBisect;
 
 public class Volatility{
 	
@@ -163,29 +164,46 @@ public class Volatility{
 	double maturity,double estimate,
 	double pointvalue)
 	{
-		//TODO: NOTE: I have re-implemented this class using YieldBisect
-		//due to the Tyield class not existing.
-		
 		double couponterm=12.0/frequency;
 		double change=((facevalue/100.0)*pointvalue);
 		setPpointpricedown(price-change);
 		setPpointpriceup(price+change);
-		//Tyield CalcBond= new Tyield();
-		NewtonYield CalcBond= new NewtonYield(estimate,1e-6,20);
-		//setInitialYldPp(CalcBond.yieldEstimate(facevalue,couponterm,
-		//couponpercent,price,maturity,estimate));
-		//setdownyieldPp(abs((CalcBond.yieldEstimate(facevalue,
-		//couponterm,couponpercent,getPricedownPp(),
-		//maturity,estimate))));
-		//setupyieldPp(abs((CalcBond.yieldEstimate(facevalue,couponterm,
-		//couponpercent,getPriceupPp(),maturity,
-		//estimate))));
-		setInitialYldPp(CalcBond.yield(facevalue,couponterm,
-		couponpercent,price,maturity));
-		setdownyieldPp(Math.abs((CalcBond.yield(facevalue,
-		couponterm,couponpercent,getPricedownPp(),
-		maturity))));
-		setupyieldPp(Math.abs((CalcBond.yield(facevalue,couponterm,
-		couponpercent,getPriceupPp(),maturity))));
+		
+		if(System.getProperty("sun.arch.data.model") .equals("64")){
+			//use newtonyield for 64bit vm
+			NewtonYield CalcBond= new NewtonYield(estimate,1e-6,20);
+			setInitialYldPp(CalcBond.yield(facevalue,couponterm,
+			couponpercent,price,maturity));
+			setdownyieldPp(Math.abs((CalcBond.yield(facevalue,
+			couponterm,couponpercent,getPricedownPp(),
+			maturity))));
+			setupyieldPp(Math.abs((CalcBond.yield(facevalue,couponterm,
+			couponpercent,getPriceupPp(),maturity))));				
+		}else {
+			//use yieldbisect for 32bit vm
+			YieldBisect CalcBond2 = new YieldBisect(20,1e-6,(estimate+0.02),(estimate-0.02));
+			//NewtonYield CalcBond= new NewtonYield(estimate,1e-6,20);
+			//setInitialYldPp(CalcBond.yieldEstimate(facevalue,couponterm,
+			//couponpercent,price,maturity,estimate));
+			//setdownyieldPp(abs((CalcBond.yieldEstimate(facevalue,
+			//couponterm,couponpercent,getPricedownPp(),
+			//maturity,estimate))));
+			//setupyieldPp(abs((CalcBond.yieldEstimate(facevalue,couponterm,
+			//couponpercent,getPriceupPp(),maturity,
+			//estimate))));
+			setInitialYldPp(CalcBond2.yield(facevalue,couponterm,
+			couponpercent,price,maturity));
+			setdownyieldPp(Math.abs((CalcBond2.yield(facevalue,
+			couponterm,couponpercent,getPricedownPp(),
+			maturity))));
+			setupyieldPp(Math.abs((CalcBond2.yield(facevalue,couponterm,
+			couponpercent,getPriceupPp(),maturity))));			
+		}
+
+		
+		
+		
+		
+
 	}
 }
