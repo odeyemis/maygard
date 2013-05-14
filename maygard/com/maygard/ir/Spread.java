@@ -96,13 +96,14 @@ public class Spread extends NewtonRaphson {
 			maturity);			
 		}
 		else{
-			YieldBisect c= new YieldBisect(20,1e-6,(spotapprox+0.02),(spotapprox-0.02));
+			//interval based on 2 percentage points above and below yieldestimate
+			YieldBisect c= new YieldBisect(20,1e-6,(spotapprox+0.2),(spotapprox-0.2));
 			//curveyield=c.yieldEstimate(facevalue,6.0,coupon,price,
 			//maturity,spotapprox);
 			curveyield = c.yield(facevalue,6.0,
 					coupon,price,maturity);	
 			price=priceval;
-			YieldBisect t= new YieldBisect(20,1e-6,(periodyield+0.02),(periodyield-0.02));
+			YieldBisect t= new YieldBisect(20,1e-6,(periodyield+0.2),(periodyield-0.2));
 			//baseyield=t.yieldEstimate(facevalue,6.0,coupon,price,
 			//maturity,periodyield);
 			baseyield=t.yield(facevalue,6.0,coupon,price,
@@ -155,7 +156,7 @@ public class Spread extends NewtonRaphson {
 			}
 		}
 		else{
-			YieldBisect t= new YieldBisect(20,1e-6,((curvest/100.0)+0.02),((curvest/100.0)-0.02));
+			YieldBisect t= new YieldBisect(20,1e-6,((curvest/100.0)+0.2),((curvest/100.0)-0.2));
 			nperiods=maturity*terms;
 			periodcoupon=(coupon/(terms));
 			price=dataperiod==1?spotPvannual(spots,coupon):
@@ -165,7 +166,7 @@ public class Spread extends NewtonRaphson {
 			curveyield=t.yield(facevalue,6.0,coupon,price,
 			maturity);
 			for(double p:prices) {
-			YieldBisect yld= new YieldBisect(20,1e-6,((yieldapprox/100.0)+0.02),((yieldapprox/100.0)-0.02));
+			YieldBisect yld= new YieldBisect(20,1e-6,((yieldapprox/100.0)+0.2),((yieldapprox/100.0)-0.2));
 			price=p;
 			//double y=yld.yieldEstimate(facevalue,6.0,coupon,price,
 			//maturity,(yieldapprox/100.0));
