@@ -182,7 +182,7 @@ public class Volatility{
 		}else {
 			//use yieldbisect for 32bit vm
 			//interval based on 2 percentage points above and below yieldestimate
-			YieldBisect CalcBond2 = new YieldBisect(20,1e-6,(estimate+0.2),(estimate-0.2));
+			YieldBisect CalcBond2 = new YieldBisect(20,1e-6,(estimate+0.02),(estimate-0.02));
 			//NewtonYield CalcBond= new NewtonYield(estimate,1e-6,20);
 			//setInitialYldPp(CalcBond.yieldEstimate(facevalue,couponterm,
 			//couponpercent,price,maturity,estimate));
