@@ -169,8 +169,7 @@ public class Volatility{
 		setPpointpricedown(price-change);
 		setPpointpriceup(price+change);
 		
-		if(System.getProperty("sun.arch.data.model") .equals("64")){
-			//use newtonyield for 64bit vm
+			//use newtonyield instead of interval bisection method
 			NewtonYield CalcBond= new NewtonYield(estimate,1e-6,20);
 			setInitialYldPp(CalcBond.yield(facevalue,couponterm,
 			couponpercent,price,maturity));
@@ -179,32 +178,7 @@ public class Volatility{
 			maturity))));
 			setupyieldPp(Math.abs((CalcBond.yield(facevalue,couponterm,
 			couponpercent,getPriceupPp(),maturity))));				
-		}else {
-			//use yieldbisect for 32bit vm
-			//interval based on 2 percentage points above and below yieldestimate
-			YieldBisect CalcBond2 = new YieldBisect(20,1e-6,(estimate+0.02),(estimate-0.02));
-			//NewtonYield CalcBond= new NewtonYield(estimate,1e-6,20);
-			//setInitialYldPp(CalcBond.yieldEstimate(facevalue,couponterm,
-			//couponpercent,price,maturity,estimate));
-			//setdownyieldPp(abs((CalcBond.yieldEstimate(facevalue,
-			//couponterm,couponpercent,getPricedownPp(),
-			//maturity,estimate))));
-			//setupyieldPp(abs((CalcBond.yieldEstimate(facevalue,couponterm,
-			//couponpercent,getPriceupPp(),maturity,
-			//estimate))));
-			setInitialYldPp(CalcBond2.yield(facevalue,couponterm,
-			couponpercent,price,maturity));
-			setdownyieldPp(Math.abs((CalcBond2.yield(facevalue,
-			couponterm,couponpercent,getPricedownPp(),
-			maturity))));
-			setupyieldPp(Math.abs((CalcBond2.yield(facevalue,couponterm,
-			couponpercent,getPriceupPp(),maturity))));			
-		}
 
-		
-		
-		
-		
 
 	}
 }

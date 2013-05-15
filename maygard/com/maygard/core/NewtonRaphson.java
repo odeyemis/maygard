@@ -37,11 +37,15 @@ public abstract class NewtonRaphson extends Derivative
            Small values of fxn can cause large differences between iterations and slow
            convergence; also the calculation of fxn itself can be complicated.
          */
-        while(Math.abs(Math.abs(x)-Math.abs(lowerbound))
-        > precisionvalue || counter < iterate)
+        
+        //while(Math.abs(Math.abs(x)-Math.abs(lowerbound))
+        //> precisionvalue || counter < iterate)
+
+        while(Math.abs(Math.abs(x)-Math.abs(lowerbound))> precisionvalue || counter > iterate)
         {
+        	
             lowerbound=x;
-            newtraph(lowerbound);//recursive call//
+            x = newtraph(lowerbound);//recursive call//
             // to newtraph//
             counter++;
         }
