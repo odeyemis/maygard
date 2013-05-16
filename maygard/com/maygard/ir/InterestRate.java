@@ -11,61 +11,77 @@ package com.maygard.ir;
 
 public final class InterestRate
 {
-	private static double cl0=0;
-	private static double cl1=0;
 	public InterestRate()
 	{
-		this.cl0=100; // Sensible default values are put here for the index
-		this.cl1=104;
+		//this.colIndexYearStart=100; // Sensible default values are put here for the index
+		//this.colIndexYearEnd=104;
 	}
-	public InterestRate(double a, double b)
+
+	//Nominal interest rate can be viewed as quoted rate and the real rate is the quoted rate
+	//adjusted for inflation changes as reflected in the cost of living index.
+	public static double realInterestRate(double nominalInterestRate, double colIndexYearStart, double colIndexYearEnd) 
 	{
-		this.cl0=a; // Calling with proper defaults is the preferred way
-		this.cl1=b;
-	}
-	public static double realInterestRate(double nominalIntr) // implements
-	{
-		return 100*((cl0*(1+nominalIntr)/cl1)-1.0); 
-	}
-	public static double effectiveInterestRate(double intr,double convertp)
-	{ // Implements
-		return Math.pow((1+(intr/convertp)), convertp)-1; 
-	}
-	public static double fint(double intr)
-	{
-		return Math.log(1+intr); // implements i = ef -1
+		//return the real interest rate
+		return 100*((colIndexYearStart*(1+nominalInterestRate)/colIndexYearEnd)-1.0); 
 	}
 	
-	public static double ancertain(double intr, double n)
+	//general formula for converting an annual nominal rate back to the annual effective rate
+	public static double effectiveAnnualInterestRate(double nominalInterestRate,double numOfConversionsPerAnnum)
 	{ 
-		return ((Math.pow((1+intr), n)-1)/intr);
+		//return the effective annual interest rate
+		return Math.pow((1+(nominalInterestRate/numOfConversionsPerAnnum)), numOfConversionsPerAnnum)-1; 
 	}
 	
-	public static double ancertainAd(double intr, double n)
+	
+	public static double forceOfInterest(double effectiveAnnualRate)
 	{
-		return (((Math.pow((1+intr), n)-1)/intr)*(1+intr));
+		return Math.log(1+effectiveAnnualRate); 
 	}
 	
-	public static double pvancert(double intr, double n)
+	//A series of payments (in arrears) for n periods.
+	//e.g. accumulated value of 321.89 paid in arrears each period for
+	//6 periods at an interest rate of 6% would be calculated 
+	//as follows: annuityCertain(0.06,6)*321.89 = 2245.18
+	public static double annuityCertain(double interestRate, double n)
+	{ 
+		return ((Math.pow((1+interestRate), n)-1)/interestRate);
+	}
+	
+	//A series of payments (in advance) for n periods.
+	//e.g. accumulated value of 321.89 paid in advance each period for
+	//6 periods at an interest rate of 6% would be calculated 
+	//as follows: annuityCertainAdvancePayments(0.06,6)*321.89 = 2379.73
+	public static double annuityCertainAdvancePayments(double interestRate, double n)
 	{
-		return (1.0-(1/Math.pow((1+intr),n)))/intr;
+		return (((Math.pow((1+interestRate), n)-1)/interestRate)*(1+interestRate));
 	}
 	
-	public static double pvancertAd(double intr, double n)
+	
+	//A series of equal payments, for n periods.
+	//Annual compounding and fixed interest rate.
+	public static double presentValueAnnuityCertain(double interestRate, double n)
 	{
-		return((1+intr)*(1.0-(1/Math.pow((1+intr),n)))/intr);
+		return (1.0-(1/Math.pow((1+interestRate),n)))/interestRate;
+	}
+
+	//A series of equal (advance) payments, for n periods.
+	//Annual compounding and fixed interest rate.	
+	public static double presentValueAnnuityCertainAdvancePayments(double interestRate, double n)
+	{
+		return((1+interestRate)*(1.0-(1/Math.pow((1+interestRate),n)))/interestRate);
 	}
 	
-	public static double pvainfprog(double intr, double growth,
+	//Present value (perpetuity)
+	public static double presentValuePerpetuity(double interestRate, double growth,
 	double value)
 	{
-		return value/intr-growth;
+		return value/interestRate-growth;
 	}
 	
-	public static double pvanmult(double intr, double n)
+	public static double presentValueIncreasingAnnuity(double interestRate, double n)
 	{
-		double value=1/(1+intr);
-		return ((pvancertAd(intr, n))-(n*Math.pow(value, n)))/intr;
+		double value=1/(1+interestRate);
+		return ((presentValueAnnuityCertainAdvancePayments(interestRate, n))-(n*Math.pow(value, n)))/interestRate;
 	}
 	
 	public static double effectintp(double annualintr,double p)

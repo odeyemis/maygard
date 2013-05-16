@@ -10,7 +10,6 @@
 package com.maygard.ir;
 
 import com.maygard.core.NewtonYield;
-import com.maygard.core.YieldBisect;
 
 public class Volatility{
 	
@@ -134,7 +133,7 @@ public class Volatility{
 	public double Bpricing(double yield,double yearterm,double coupon)
 	{
 		couponvalue=((facevalue*coupon/100)/frequency);
-		pv=(couponvalue*InterestRate.pvancert((yield/100.0)/frequency,
+		pv=(couponvalue*InterestRate.presentValueAnnuityCertain((yield/100.0)/frequency,
 		(frequency*yearterm)));
 		par=(facevalue*(1.0/Math.pow(1.0+(yield/100.0)/frequency,
 		(frequency*yearterm))));
@@ -146,7 +145,7 @@ public class Volatility{
 		pVbPoints(yield,yearterm,coupon,pointchange);//price value of a
 		//basis point
 		couponvalue=((facevalue*coupon/100)/frequency);
-		pv=(couponvalue*InterestRate.pvancert((yield/100.0)/frequency,
+		pv=(couponvalue*InterestRate.presentValueAnnuityCertain((yield/100.0)/frequency,
 		(frequency*yearterm)));
 		par=(facevalue*(1.0/Math.pow(1.0+(yield/100.0)/frequency,
 		(frequency*yearterm))));
