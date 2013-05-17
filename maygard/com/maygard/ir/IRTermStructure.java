@@ -21,10 +21,10 @@ public class IRTermStructure extends IRTerms {
 	{
 	}
 	public double DiscpOne(double interate,double time_1) {
-	return discountFromYield(interate,time_1);// As in Listing 2.6
+	return discountFromYield(interate,time_1);
 	}
 	public double SpotpOne(double interate,double time_1) {
-	return yieldFromDiscount(interate,time_1);// as in Listing 2.6
+	return yieldFromDiscount(interate,time_1);
 	}
 	public double Forwdisc(double interate_1,double interate_2,
 	double time_1,double time_2) {
