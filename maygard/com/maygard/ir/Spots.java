@@ -9,11 +9,14 @@
  */
 package com.maygard.ir;
 
+//Spots.java provides the overloaded method spotFcoupon for calculating
+//the spot rates. 
 public class Spots {
 	
 	public Spots() {
 	}
 	
+	//Provides spot rates for annual coupons
 	public double[] spotFcoupon(double[][]pcdata)
 	{
 		int n= pcdata.length;
@@ -31,6 +34,9 @@ public class Spots {
 		}
 		return spots;
 	}
+	
+	//Provides spot rates for annual coupons with the addition of
+	//period adjustments to the algorithms.
 	public double[] spotFcoupon(double[][]pcdata,int periods)
 	// for period frequency of annual coupons
 	{
