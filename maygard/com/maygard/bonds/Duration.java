@@ -74,11 +74,11 @@ public class Duration {
 		yield=yield/frequency;
 		coupon=coupon/frequency;
 		int n=(int)(period*frequency);
-		val=(n*(PresentValue.pV(yield,parprice,n)/bondprice));// face value
+		val=(n*(PresentValue.presentValue(yield,parprice,n)/bondprice));// face value
 		//discounted..
 		for(int i=1;i<(n+1);i++) {
-			double value=((PresentValue.pV(yield,(coupon*parprice),i))/bondprice);
-			val+=((PresentValue.pV(yield,(coupon*parprice),i))/bondprice);
+			double value=((PresentValue.presentValue(yield,(coupon*parprice),i))/bondprice);
+			val+=((PresentValue.presentValue(yield,(coupon*parprice),i))/bondprice);
 			// individual period cash flows
 		}
 		setMDyears(val);

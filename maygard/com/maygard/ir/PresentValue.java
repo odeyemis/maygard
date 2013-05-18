@@ -13,7 +13,7 @@ public final class PresentValue {
 /** creates a new instance of PresentValue */
 	public PresentValue() {
 	}
-	public static double pV(double[] discounts,double[]cashflows)
+	public static double presentValue(double[] discounts,double[]cashflows)
 	{
 		int n=cashflows.length;
 		double presval=0;
@@ -25,7 +25,7 @@ public final class PresentValue {
 		}
 		return presval;
 	}
-	public static double pV(double r,double[] cashflows)
+	public static double presentValue(double r,double[] cashflows)
 	{
 		int indx=1;
 		double sum=0;
@@ -37,7 +37,7 @@ public final class PresentValue {
 		return sum;
 	}
 	
-	public static double pV(double r,double cash,int period)
+	public static double presentValue(double r,double cash,int period)
 	{
 		double sum=0;
 		int indx=1;
