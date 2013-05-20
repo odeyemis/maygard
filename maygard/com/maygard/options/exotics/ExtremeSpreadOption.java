@@ -12,7 +12,7 @@ package com.maygard.options.exotics;
 import com.maygard.core.Csmallnumber;
 import com.maygard.core.Probnormal;
 
-//Extreme Spread Option Valuation.
+//Extreme Spread Option Valuation
 public class ExtremeSpreadOption {
 	
 	public ExtremeSpreadOption(double rate, double yield, double eta) {
