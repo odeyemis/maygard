@@ -36,11 +36,11 @@ public class AccruedConvention {
 	this.coupons=12.0/couponperiod;
 	}
 	
-	public double getPreviousCoupondays() {
+	public double getPreviousCouponDays() {
 	return previouscoupondays;
 	}
 	
-	private void setPreviousCoupondays(double prevcoupdate) {
+	private void setPreviousCouponDays(double prevcoupdate) {
 	this.previouscoupondays=prevcoupdate;
 	}
 	
@@ -48,7 +48,7 @@ public class AccruedConvention {
 	private double coupons;
 	public double previouscoupondays;
 	
-	public double daycounts(int flagvalue,Calendar settlementdate,
+	public double dayCounts(int flagvalue,Calendar settlementdate,
 	Calendar nextcoupondate) {
 		Calendar temp=Calendar.getInstance();
 		previouscoupon.set(Calendar.YEAR,(nextcoupondate.get(Calendar.YEAR)));
@@ -73,7 +73,7 @@ public class AccruedConvention {
 				    }
 				    actualdays+=(previouscoupon.getActualMaximum(Calendar.DAY_OF_MONTH)
 				    -previouscoupon.get(Calendar.DATE));
-				    setPreviousCoupondays((double)(actualdays-samedays)/
+				    setPreviousCouponDays((double)(actualdays-samedays)/
 				    (actualdays));
 				    return (double)samedays/actualdays;
 				}
@@ -95,7 +95,7 @@ public class AccruedConvention {
 				}
 				actualdays+=(previouscoupon.getActualMaximum(Calendar.DAY_OF_MONTH)
 				-previouscoupon.get(Calendar.DATE));
-				setPreviousCoupondays((double)(actualdays-actualday)
+				setPreviousCouponDays((double)(actualdays-actualday)
 				/(actualdays));
 				return (double)actualday/actualdays; //returns fraction of the
 				// coupon period
@@ -114,7 +114,7 @@ public class AccruedConvention {
 			{
 				samedays=(nextcoupondate.get(Calendar.DATE)
 				-settlementdate.get(Calendar.DATE));
-				setPreviousCoupondays((double)(((365.0/coupons)
+				setPreviousCouponDays((double)(((365.0/coupons)
 				-samedays)/(365.0/coupons)));
 				//requires annual multiple of coupon rate
 				return (double)(samedays/(365.0/coupons));
@@ -129,7 +129,7 @@ public class AccruedConvention {
 			}
 			actualday+=nextcoupondate.get(Calendar.DATE);
 			System.out.println("Actual days between coupon and settlement =="+actualdays);
-			setPreviousCoupondays((double)(actualdays/
+			setPreviousCouponDays((double)(actualdays/
 			(365.0/coupons)));
 			return (double)(((365.0/coupons)-actualdays)/
 			(365.0/coupons));
@@ -152,7 +152,7 @@ public class AccruedConvention {
 				int total;
 				total=(previouscoupon.getActualMaximum(Calendar.DAY_OF_YEAR)|nextcoupondate
 				.getActualMaximum(Calendar.DAY_OF_YEAR))==366?366:365;
-				setPreviousCoupondays((double)(((total/coupons)
+				setPreviousCouponDays((double)(((total/coupons)
 				-samedays)/(total/coupons)));
 				return (double)samedays/(total/coupons);
 			}
@@ -169,7 +169,7 @@ public class AccruedConvention {
 			nextcoupondate.getActualMaximum(Calendar.DAY_OF_YEAR))
 			==366?366:365;
 			System.out.println("Actual days between coupon and settlement =="+actualdays);
-			setPreviousCoupondays((double)(actualdays/
+			setPreviousCouponDays((double)(actualdays/
 			(totaldays/coupons)));
 			return (double)(((totaldays/coupons)-actualdays)/
 			(totaldays/coupons));
@@ -178,11 +178,11 @@ public class AccruedConvention {
 			
 			case 4:
 			if(settlementdate.get(Calendar.MONTH)==nextcoupondate.get(Calendar.MONTH))
-			// Coupon annual eg US Gov’t agency..
+			// Coupon annual eg US Govï¿½t agency..
 			{
 				samedays=(nextcoupondate.get(Calendar.DATE)
 				-settlementdate.get(Calendar.DATE));
-				setPreviousCoupondays((double)((360.0)-samedays)/
+				setPreviousCouponDays((double)((360.0)-samedays)/
 				(360.0));
 				return (double)samedays/(360.0);
 			}
@@ -194,7 +194,7 @@ public class AccruedConvention {
 				actualday+=temp.getActualMaximum(Calendar.DAY_OF_MONTH);
 			}
 			actualday+=nextcoupondate.get(Calendar.DATE);
-			setPreviousCoupondays((double)((360.0)-actualday)/
+			setPreviousCouponDays((double)((360.0)-actualday)/
 			(360.0));
 			return (double)actualday/(360.0);
 			
@@ -212,7 +212,7 @@ public class AccruedConvention {
 				samedays=(nextcoupondate.get(Calendar.DATE)
 				-settlementdate.get(Calendar.DATE));
 				samedays=samedays==31?30:samedays;
-				setPreviousCoupondays
+				setPreviousCouponDays
 				((double)((360.0/coupons)-samedays)/(360.0/coupons));
 				return (double)samedays/(360.0/coupons);
 			}
@@ -232,7 +232,7 @@ public class AccruedConvention {
 			int coupdate=nextcoupondate.get(Calendar.DATE);
 			coupdate=((coupdate==31)&(dateset==30))?30:coupdate;
 			actualday+=coupdate;
-			setPreviousCoupondays((double)((360.0/coupons)
+			setPreviousCouponDays((double)((360.0/coupons)
 			-actualday)/(360.0/coupons));
 			return (double)actualday/(360.0/coupons);
 			
@@ -246,7 +246,7 @@ public class AccruedConvention {
 				int numsetdays=settlementdate.get(Calendar.DATE);
 				numsetdays=numsetdays==31?30:numsetdays;
 				samedays=numdays-numsetdays;
-				setPreviousCoupondays((double)((360.0/coupons)
+				setPreviousCouponDays((double)((360.0/coupons)
 				-samedays)/(360.0/coupons));
 				return (double)samedays/(360.0/coupons);
 			}
@@ -268,7 +268,7 @@ public class AccruedConvention {
 			coupondate=coupondate==31?30:coupondate;
 			actualday+=coupondate;
 			System.out.println("actualdays "+actualday);
-			setPreviousCoupondays((double)((360.0/coupons)-actualday)
+			setPreviousCouponDays((double)((360.0/coupons)-actualday)
 			/(360.0/coupons));
 			return (double)actualday/(360.0/coupons);
 			default: throw new AssertionError

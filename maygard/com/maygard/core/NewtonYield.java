@@ -42,6 +42,8 @@ public class NewtonYield extends NewtonRaphson
 		return solution;
 	}
 	
+	//note: the yield to maturity for bonds priced exactly at par is equal to the
+	//coupon rate
 	public double yield(double noms, double term, double coupon,
 	double mktp, double period) {
 		nominalpricevalue=noms;
