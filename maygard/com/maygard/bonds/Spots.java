@@ -7,7 +7,7 @@
 
  Contact: odeyemis@gmail.com
  */
-package com.maygard.ir;
+package com.maygard.bonds;
 
 //Spots.java provides the overloaded method spotFcoupon for calculating
 //the spot rates. 
