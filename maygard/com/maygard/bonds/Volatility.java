@@ -7,9 +7,10 @@
 
  Contact: odeyemis@gmail.com
  */
-package com.maygard.ir;
+package com.maygard.bonds;
 
 import com.maygard.core.NewtonYield;
+import com.maygard.ir.InterestRate;
 
 public class Volatility{
 	
@@ -117,20 +118,20 @@ public class Volatility{
 	double pointchange)
 	{
 		double yieldval;
-		mktprice=Bpricing(yield,yearterm,coupon);
+		mktprice=bondPrice(yield,yearterm,coupon);
 		setCurrentPvb(mktprice);
 		yieldval=(yield+(pointchange/100.0));// make basis point
 		//adjustment higher
-		mktpricenew=Bpricing(yieldval,yearterm,coupon);
+		mktpricenew=bondPrice(yieldval,yearterm,coupon);
 		setRelativeValue(Math.abs(mktpricenew-mktprice));
 		yieldval=(yield-(pointchange/100.0));// make basis point
 		//adjustment lower
-		mktpricelow=Bpricing(yieldval,yearterm,coupon);
+		mktpricelow=bondPrice(yieldval,yearterm,coupon);
 		setRelativeValuelow(Math.abs(mktpricelow-mktprice));
 	}
 	
 	/* Provides basic bond pricing */
-	public double Bpricing(double yield,double yearterm,double coupon)
+	public double bondPrice(double yield,double yearterm,double coupon)
 	{
 		couponvalue=((facevalue*coupon/100)/frequency);
 		pv=(couponvalue*InterestRate.presentValueAnnuityCertain((yield/100.0)/frequency,

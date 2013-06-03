@@ -10,7 +10,6 @@
 package com.maygard.bonds;
 
 import com.maygard.ir.PresentValue;
-import com.maygard.ir.Volatility;
 
 public class Duration {
 	
@@ -69,7 +68,7 @@ public class Duration {
 	double parprice,double coupon) {
 		double val=0;
 		Volatility v=new Volatility(parprice,frequency);
-		double bondprice=v.Bpricing((yield*100.0),period,
+		double bondprice=v.bondPrice((yield*100.0),period,
 		(coupon*100.0));
 		yield=yield/frequency;
 		coupon=coupon/frequency;

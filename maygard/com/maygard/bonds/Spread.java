@@ -7,11 +7,12 @@
 
  Contact: odeyemis@gmail.com
  */
-package com.maygard.ir;
+package com.maygard.bonds;
 
 import com.maygard.core.NewtonRaphson;
 import com.maygard.core.NewtonYield;
 import com.maygard.core.YieldBisect;
+import com.maygard.ir.PresentValue;
 
 public class Spread extends NewtonRaphson {
 	
